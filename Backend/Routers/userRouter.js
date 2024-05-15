@@ -5,6 +5,6 @@ import getUserforSidebar from '../Controllers/usercontrol.js';
 
 const Siderouter = express.Router();
 
-Siderouter.get("/", protect, getUserforSidebar);
+Siderouter.get("/get",protect, getUserforSidebar);
 
 export default Siderouter;

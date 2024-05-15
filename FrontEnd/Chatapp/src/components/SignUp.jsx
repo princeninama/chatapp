@@ -2,11 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userInfo } from "../API/userInfo";
+import { userInfo } from "../API/userInfo.js";
 import toast from "react-hot-toast";
-
+import { useAuthContext } from "./context/Userauth.jsx";
 import User from "../../../../Backend/schema/user.js";
-
 const SignUp = () => {
   const [move, setMove] = useState(false);
   const navigate = useNavigate();
@@ -17,6 +16,7 @@ const SignUp = () => {
   const [cPassword, setcPassword] = useState("");
   const [Gender, setGender] = useState("");
   const [ProfilePic, setProfilePic] = useState("");
+  const { setAuthUser } = useAuthContext();
 
   const validPassword = (Password, cPassword) => {
     if (Password != cPassword) {
@@ -30,24 +30,24 @@ const SignUp = () => {
     return true;
   };
 
-  const exist = (username) => {
-    const isexist = User.findOne({username});
-    if(isexist) {
-      toast.error("Usrname already exists");
-      return false;
-    }
-    return true;
-  };
+  // const exist = async (username) => {
+  //   const user = await User.findOne({ username: username });
+  //   console.log("user finding from database for same username", user);
+  //   if (user) {
+  //     toast.error("Username already exists");
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   const handleSignin = () => {
     navigate("/");
   };
   const handleSignup = () => {
     const ismatch = validPassword(Password, cPassword);
-    const isexist= exist(username);
-    if (ismatch && isexist) {
+    if (ismatch) {
       toast.success("Welcome to Chugalkhori!");
-      navigate("/main");
+      // navigate("/main");
     }
   };
   const animatesignin = () => {
@@ -68,8 +68,8 @@ const SignUp = () => {
       Gender: Gender,
       ProfilePic: ProfilePic,
     };
-    const resoponse = await userInfo(data);
-    console.log(resoponse);
+    console.log("data from sign up", data);
+    await userInfo(data, setAuthUser);
   };
   return (
     <div className="flex h-screen">
@@ -185,8 +185,8 @@ const SignUp = () => {
             </label>
           </div>
           <button
-            onClick={() => {
-              SaveData();
+            onClick={async () => {
+              await SaveData();
               handleSignup();
             }}
             className="bg-green-800 w-[40%] ml-28 border rounded-3xl p-3 mt-5 text-white hover:bg-green-200"

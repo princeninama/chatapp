@@ -2,10 +2,11 @@ import jwt from 'jsonwebtoken';
 import User from '../schema/user.js';
 const protect = async(req,res,next) => {
   try {
+    // console.log("at protect route")
     const token=req.cookies.jwt;
     if(!token)
     {
-        console.log("cookie not found")
+        // console.log("cookie not found")
         return res.status(401).json({error: 'NO token found'});
     }
     const decode=jwt.verify(token,process.env.SECKEY)

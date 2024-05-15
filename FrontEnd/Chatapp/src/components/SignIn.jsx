@@ -1,26 +1,21 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { UserLogin } from "../API/userInfo.js";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../components/context/Userauth.jsx";
 const SignIn = () => {
   const [move, setMove] = useState(false);
-  const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [Password, setpassword] = useState("");
-
+  const { setAuthUser } = useAuthContext();
+  const navigate=useNavigate();
   const validUser = async (e) => {
     e.preventDefault();
-
-    await UserLogin(username, Password);
-  };
-
-  
-  const handleSignin = () => {
+    await UserLogin(username, Password,setAuthUser);
     toast.success("Successfully signed in");
-    navigate("/main");
   };
+
   const handleSignup = () => {
     navigate("/signUp");
   };
@@ -51,33 +46,31 @@ const SignIn = () => {
           <div className="h-12 w-12 rounded-full bg-slate-900"></div>
         </div>
         <div className="ml-40">
-          <form onSubmit={validUser}>
-            <input
-              type="text"
-              value={username}
-              placeholder="Email Or UsserName"
-              onChange={(e) => {
-                setusername(e.target.value);
-              }}
-              className="rounded-2xl border-1 block p-2 mt-5 w-full md:w-[70%] bg-slate-100"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={Password}
-              onChange={(e) => {
-                setpassword(e.target.value);
-              }}
-              className="block w-full md:w-[70%] mt-5 p-2 rounded-2xl border-1 bg-slate-100"
-            />
-            <button
-              type="submit"
-              onClick={handleSignin}
-              className="bg-green-800 w-full md:w-[40%] ml-28 border rounded-3xl p-3 mt-5 text-white"
-            >
-              Sign In
-            </button>
-          </form>
+          <input
+            type="text"
+            value={username}
+            placeholder="Email Or UsserName"
+            onChange={(e) => {
+              setusername(e.target.value);
+            }}
+            className="rounded-2xl border-1 block p-2 mt-5 w-full md:w-[70%] bg-slate-100"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={Password}
+            onChange={(e) => {
+              setpassword(e.target.value);
+            }}
+            className="block w-full md:w-[70%] mt-5 p-2 rounded-2xl border-1 bg-slate-100"
+          />
+          <button
+            type="submit"
+            onClick={validUser}
+            className="bg-green-800 w-full md:w-[40%] ml-28 border rounded-3xl p-3 mt-5 text-white"
+          >
+            Sign In
+          </button>
         </div>
       </motion.div>
       <motion.div

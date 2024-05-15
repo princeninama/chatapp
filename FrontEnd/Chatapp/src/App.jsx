@@ -1,34 +1,37 @@
-import { useState } from "react";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import MainScreen from "./components/MainScreen";
 import { Toaster } from "react-hot-toast";
+import Hello from "./Hello";
 import { useAuthContext } from "./components/context/Userauth";
 function App() {
-  const { authuser } = useAuthContext();
+  const { authUser } = useAuthContext();
+  console.log(authUser);
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={authuser ? <Navigate to={"/main"} /> : <SignIn />}
-            // element={<SignIn />}
-          />
-          <Route
-            path="/SignUp"
-            // element={<SignIn />}
-            element={authuser ? <Navigate to={"/main"} /> : <SignUp />}
-          />
-          <Route
+      <Routes>
+        <Route
+          path="/"
+          element={authUser ? <Navigate to={"/main"} /> : <SignIn />}
+          // element={<SignIn />}
+        />
+        <Route
+          path="/SignUp"
+          // element={<SignUp />}
+          element={authUser ? <Navigate to={"/main"} /> : <SignUp />}
+        />
+        {/* <Route
+          path="/main"
+          element={authUser ? <Hello /> : <Navigate to={"/"} />}
+        /> */}
+        <Route
             path="/main"
             // element={<MainScreen />}
-            element={authuser ? <MainScreen /> : <Navigate to="/" />}
+            element={authUser ? <MainScreen /> : <Navigate to="/" />}
           />
-        </Routes>
-        <Toaster />
-      </BrowserRouter>
+      </Routes>
+      <Toaster />
     </>
   );
 }

@@ -1,18 +1,21 @@
 import bcrypt from "bcryptjs/dist/bcrypt.js";
 import generateToken from "../utils/token.js";
 import User from "../schema/user.js";
+
+
 export const logIn = async (req, res) => {
   try {
     const { username, Password } = req.body;
     const user = await User.findOne({ username });
 
-    // console.log("User from database:", user);
+    console.log("User from database:", user);
 
-    // console.log("User Password:", user.Password);
+    console.log("User Password:", user.Password);
 
     const passwordCheck = await bcrypt.compare(Password, user?.Password || "");
 
     if (!passwordCheck || !user) {
+      console.log("password check failed")
       return res.status(400).json({ error: "Invalid credentials" });
     }
     generateToken(user._id, res);
@@ -20,15 +23,16 @@ export const logIn = async (req, res) => {
 
     res.status(200).json({
       _id: user._id,
-      fullName: user.fullName,
+
       username: user.username,
-      profilePic: user.profilePic,
     });
   } catch (error) {
     console.log("error in login controller", error);
     return res.status(500).json({ error: "Server error" }); // Handle server error
   }
 };
+
+
 export const signUp = async (req, res) => {
   // res.send("helloo")
   console.log("at Backend");
@@ -52,6 +56,7 @@ export const signUp = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (user) {
+      console.log("username exists");
       return res.status(400).json({ error: "Username already exists" });
     }
 
@@ -67,6 +72,7 @@ export const signUp = async (req, res) => {
     console.log(newUser);
 
     if (newUser) {
+      console.log("enterring token");
       generateToken(newUser._id, res);
       await newUser.save();
 

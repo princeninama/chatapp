@@ -3,10 +3,14 @@ import { GetUserForSidebar } from "../../API/Messageinfo.js";
 import Conversation from "./Conversation.jsx";
 
 const Baate = () => {
-  const conversation = GetUserForSidebar();
+  // const conversations = GetUserForSidebar();
+  // console.log("in baate conversation = ", conversations);
   return (
     <div className="py-2 flex flex-col overflow-auto">
-      {<Conversation key={conversation._id} conversation={conversation} />}
+      {/* {conversations.map((conversation) => {
+        <Conversation key={conversation._id} conversation={conversation} />;
+      })} */}
+      <Conversation/>
     </div>
   );
 };

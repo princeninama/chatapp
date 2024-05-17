@@ -10,8 +10,8 @@ const Logout = () => {
     toast.success("logged out ")
   }
   return (
-    <div className='mt-auto bg-red-500 '>
-            < BiLogOut className='cursor-pointer h-12'
+    <div className=' bg-transparent fixed mt-36' >
+            < BiLogOut className='cursor-pointer size-12 bg-zinc-500'
              onClick={handleLogout}
               />
     </div>

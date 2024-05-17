@@ -4,7 +4,7 @@ import axios from "axios";
 export const userInfo = async (data, setAuthUser) => {
   // const { setAuthUser } = useAuthContext();
   try {
-    console.log("at api call of signup", data);
+    // console.log("at api call of signup", data);
     const response = await axios.post(
       "http://localhost:80/api/auth/signup",
       data,
@@ -27,7 +27,7 @@ export const UserLogin = async (username, Password, setAuthUser) => {
   // const { setAuthUser } = useAuthContext();
 
   try {
-    console.log("at api call of signin");
+    // console.log("at api call of signin");
     const response = await axios.post(
       "http://localhost:80/api/auth/login",
       {

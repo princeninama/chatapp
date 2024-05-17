@@ -1,24 +1,28 @@
 import React, { useEffect, useRef } from "react";
-import { UsegetMessage } from "../../API/Messageinfo";
+import {UsegetMessage} from "../../API/Messageinfo.js";
 import Message from "./Message";
+
 const Msg = () => {
-  const { message } = UsegetMessage();
-  const lastMessageRef = useRef();
-  useEffect(() => {
-    setTimeout(() => {
-      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
-  }, [message]);
+  const { messages } = UsegetMessage();
+  // const lastMessageRef = useRef();
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+  //   }, 100);
+  // }, [messages]);
+
+  // console.log("messages are ", messages);
+
   return (
     <div>
-      {message.length > 0 &&
-        message.map((msg) => {
-          <div key={msg._id} ref={lastMessageRef}>
+      {messages.length > 0 &&
+        messages.map((msg) => (
+          <div key={msg._id}>
             <Message message={msg} />
-          </div>;
-        })}
-
-      {message.length === 0 && (
+          </div>
+        ))}
+      {messages.length === 0 && (
         <p className="text-center">Send a message to start Conversation</p>
       )}
     </div>

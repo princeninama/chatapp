@@ -6,30 +6,35 @@ import { GetUserForSidebar } from "../../API/Messageinfo.js";
 
 const Search = () => {
   const [search, setSearch] = useState("");
-  const { setSelectedConversation } = useConversation();
-  const { conversations } = GetUserForSidebar();
+  const { setSelectConversation,selectConversation } = useConversation();
+  const  conversations  = GetUserForSidebar();
 
   // console.log("conversations is ",conversations)
   
+
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+  
     // const conversation = conversations.find((conv) =>
     //   conv.username.includes(search)
     // );
-    const conversation = conversations.find((c)=>{
-      c.fullname.includes(search)
-    });
-    if (conversation) {
-      setSelectedConversation(conversation);
-      setSearch("");
-    }else toast.error("No such user found")
-  };
-
+    const conversation = conversations.find((conv) => conv.username === search);
+    console.log("submit Here",conversation);
   
+    if (conversation) {
+      setSelectConversation(conversation);
+      setSearch("");
+      // console.log("set",selectConversation)
+    } else {
+      toast.error("No such user found");
+    }
+  };
+  
+
   return (
     <div className="flex">
       <label htmlFor="username" className="mt-2">

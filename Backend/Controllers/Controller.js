@@ -8,9 +8,9 @@ export const logIn = async (req, res) => {
     const { username, Password } = req.body;
     const user = await User.findOne({ username });
 
-    console.log("User from database:", user);
+    // console.log("User from database:", user);
 
-    console.log("User Password:", user.Password);
+    // console.log("User Password:", user.Password);
 
     const passwordCheck = await bcrypt.compare(Password, user?.Password || "");
 
@@ -35,7 +35,7 @@ export const logIn = async (req, res) => {
 
 export const signUp = async (req, res) => {
   // res.send("helloo")
-  console.log("at Backend");
+  // console.log("at Backend");
   try {
     const { fullname, username, email, Password, Gender } = req.body;
 

@@ -3,10 +3,11 @@ import Message from "../schema/msg.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const SendMsg = async (req, res) => {
+  // console.log("at backend of send msg");
   try {
-    const { message } = req.body;
+    const { message, senderId } = req.body;
+    console.log(message);
     const { id: receiverId } = req.params;
-    const senderId = req.user._id;
     let c = await Conversation.findOne({
       Participants: {
         $all: [senderId, receiverId],
@@ -23,14 +24,14 @@ export const SendMsg = async (req, res) => {
       message,
     });
 
-    c.message.push(newMsg._id)
-    
+    c.message.push(newMsg._id);
+
     await Promise.all([c.save(), newMsg.save()]);
     const receiverSocketId = getReceiverSocketId(receiverId);
-		if (receiverSocketId) {
-			// io.to(<socket_id>).emit() used to send events to specific client
-			io.to(receiverSocketId).emit("newMessage", newMsg);
-		}
+    if (receiverSocketId) {
+      // io.to(<socket_id>).emit() used to send events to specific client
+      io.to(receiverSocketId).emit("newMessage", newMsg);
+    }
     res.status(200).json(newMsg);
   } catch (error) {
     console.log("Error in Sending Message: " + error);
@@ -38,25 +39,22 @@ export const SendMsg = async (req, res) => {
   }
 };
 
-
-export const getMsg = async (req, res) => { 
+export const getMsg = async (req, res) => {
+  // console.log("at backedn of get msg");
   try {
-    
-    const {id:useridforchat} = req.params;
+    // console.log("here at backend");
+    const { id: useridforchat } = req.params;
     const senderId = req.user._id;
-    const conversation = await Conversation.findOne(
-      {
-        Participants:{$all : [senderId,useridforchat]}
-      }
-    ).populate('message') 
+    // console.log("sender is ", senderId);
+    const conversation = await Conversation.findOne({
+      Participants: { $all: [senderId, useridforchat] },
+    }).populate("message");
 
-
-    if(!conversation)
-    {
-      return res.status(200).json([])
+    if (!conversation) {
+      return res.status(200).json([]);
     }
-  res.status(200).json(conversation.message);
-  } catch (error) { 
+    res.status(200).json(conversation.message);
+  } catch (error) {
     console.log("Error in GetMsg: " + error);
     res.status(404).json({ error: error.message });
   }

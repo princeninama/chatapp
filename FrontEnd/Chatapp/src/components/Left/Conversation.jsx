@@ -18,7 +18,7 @@ const Conversation = ({ conversation }) => {
           setSelectConversation(conversation);
         }}
       >
-        <div className=" bg-gray-800 text-white font-mono h-auto w-auto p-4">{conversation.username}</div>
+        <div className=" bg-gray-800 text-white font-mono h-auto w-auto p-4">{conversation.ProfilePic}</div>
         <div className="bg-gray-500 text-xl text-white w-full px-2 py-2 mx-2 my-2 rounded-xl">
           {conversation.fullname}
         </div>

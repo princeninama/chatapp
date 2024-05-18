@@ -29,6 +29,9 @@ const SignUp = () => {
     }
     return true;
   };
+  const handleFileChange = (e) => {
+    setProfilePic(e.target.files[0]);
+  };
 
   // const exist = async (username) => {
   //   const user = await User.findOne({ username: username });
@@ -149,16 +152,16 @@ const SignUp = () => {
           />
 
           <div className="mt-5">
-            <label htmlFor="Profile Pic">
-              <div
-                className=" bg-slate-100 p-2 w-32 rounded-2xl mr-4 inline"
-                onChange={(e) => {
-                  setProfilePic(e.target.value);
-                }}
-              >
-                Profile Pic :
+            <label htmlFor="profilePic">
+              <div className="bg-slate-100 p-2 w-32 rounded-2xl mr-4 inline">
+                Profile Pic:
               </div>
-              <input type="file" />
+              <input
+                type="file"
+                id="profilePic"
+                onChange={handleFileChange}
+                // style={{ display: "none" }}
+              />
             </label>
           </div>
           <div className=" gap-x-4 mt-4 flex">

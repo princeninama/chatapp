@@ -6,25 +6,24 @@ import { GetUserForSidebar } from "../../API/Messageinfo.js";
 
 const Search = () => {
   const [search, setSearch] = useState("");
-  const { setSelectConversation,selectConversation } = useConversation();
-  const  conversations  = GetUserForSidebar();
+  const { setSelectConversation, selectConversation } = useConversation();
+  const conversations = GetUserForSidebar();
 
   // console.log("conversations is ",conversations)
-  
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // const conversation = conversations.find((conv) =>
     //   conv.username.includes(search)
     // );
     const conversation = conversations.find((conv) => conv.username === search);
-    console.log("submit Here",conversation);
-  
+    console.log("submit Here", conversation);
+
     if (conversation) {
       setSelectConversation(conversation);
       setSearch("");
@@ -33,13 +32,9 @@ const Search = () => {
       toast.error("No such user found");
     }
   };
-  
 
   return (
-    <div className="flex">
-      <label htmlFor="username" className="mt-2">
-        <CiSearch />
-      </label>
+    <div className="flex bg-black h-12">
       <input
         type="text"
         name=""
@@ -47,13 +42,14 @@ const Search = () => {
         value={search}
         onChange={handleSearch}
         placeholder="Search"
-        className="w-64 mx-2 border-2 border-black px-2 rounded-lg"
-      />
+        className="w-64  border-2 border-black px-2 rounded-lg"
+      ></input>
+
       <button
         onClick={handleSubmit}
-        className="bg-blue-300 p-1 px-3 rounded-lg"
+        className="bg-blue-300 flex justify-center items-center px-3 ml-2 rounded-lg"
       >
-        Get
+        <CiSearch />
       </button>
     </div>
   );

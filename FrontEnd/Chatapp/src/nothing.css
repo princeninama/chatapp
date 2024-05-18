@@ -6,13 +6,21 @@
   font-weight: 400;
   font-style: normal;
 }
+.header {
+  font-family: "Lobster", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
 .chatu{
 background-color: rgb(176, 246, 246);
-width: auto;
+/* width: auto; */
 padding: 15px;
 }
 
 .chatme{
 background-color: rgb(135, 249, 135);
+right: 0;
+
 padding: 15px;
 }

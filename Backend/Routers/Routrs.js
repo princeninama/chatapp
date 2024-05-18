@@ -1,11 +1,14 @@
-import express from "express";
-// import createUser from "../Controllers/newUser.js"
+import express from 'express';
+import { logIn, logOut, signUp } from '../Controllers/Controller.js';
 
-const Authrouter = express.Router();
+const Authrouter = (upload) => {
+  const router = express.Router();
 
-import { logIn,logOut,signUp } from "../Controllers/Controller.js";
-Authrouter.post("/signup",signUp);
-Authrouter.post("/login",logIn);
-Authrouter.post("/logout",logOut);
+  router.post("/signup", upload.single('ProfilePic'), signUp); // Apply upload middleware
+  router.post("/login", logIn);
+  router.post("/logout", logOut);
+
+  return router;
+};
+
 export default Authrouter;
-  

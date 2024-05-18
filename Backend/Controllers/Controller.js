@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs/dist/bcrypt.js";
 import generateToken from "../utils/token.js";
 import User from "../schema/user.js";
-
+import multer from "multer";
+const upload = multer({ dest: 'uploads/' });
 
 export const logIn = async (req, res) => {
   try {
@@ -38,20 +39,18 @@ export const signUp = async (req, res) => {
   // console.log("at Backend");
   try {
     const { fullname, username, email, Password, Gender } = req.body;
-
+    const ProfilePic = req.file ? req.file.path : '';
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(Password, salt);
 
-    const boypic = `https://avatar.iran.liara.run/public/boy?username${username}`;
-    const girlpic = `https://avatar.iran.liara.run/public/girl?username${username}`;
+    // const boypic = `https://avatar.iran.liara.run/public/boy?`;
+    // const girlpic = 'https://avatar.iran.liara.run/public/girl?';
 
-    let ProfilePic;
-
-    if (Gender === "male") {
-      ProfilePic = boypic;
-    } else {
-      ProfilePic = girlpic;
-    }
+    // if (Gender === "male") {
+    //   ProfilePic = boypic;
+    // } else {
+    //   ProfilePic = girlpic;
+    // }
 
     const user = await User.findOne({ username });
 
@@ -65,14 +64,14 @@ export const signUp = async (req, res) => {
       username,
       email,
       Password: hashedPassword,
-      Gender,
-      ProfilePic,
+      Gender:Gender,
+      ProfilePic:ProfilePic,
     });
 
     console.log(newUser);
 
     if (newUser) {
-      console.log("enterring token");
+      // console.log("enterring token");
       generateToken(newUser._id, res);
       await newUser.save();
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userInfo } from "../API/userInfo.js";
 import toast from "react-hot-toast";
+import "../nothing.css"
 import { useAuthContext } from "./context/Userauth.jsx";
 import User from "../../../../Backend/schema/user.js";
 const SignUp = () => {
@@ -82,7 +83,7 @@ const SignUp = () => {
         transition={{ duration: 1 }}
         className="bg-gradient-to-tr from-teal-500 via-green-400 to-teal-800 w-[40%]  block"
       >
-        <h1 className="text-3xl m-10 font-bold">Chugalkhori</h1>
+        <h1 className="text-3xl m-10 font-extrabold nothing text-black">Chugalkhori</h1>
         <div className="text-[2.5rem] text-white font-semibold text-center mt-40">
           Already Have An Account?
         </div>

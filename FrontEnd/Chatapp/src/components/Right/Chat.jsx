@@ -16,7 +16,7 @@ const Chat = () => {
   }, [setSelectConversation]);
   
   return (
-    <div className="bg-green-300 w-full h-screen overflow-auto">
+    <div className="bg-[#77797d] w-full h-screen overflow-auto">
       {/* <div className="flex bg-slate-300 fixed w-full top-0 "> */}
       {selectConversation ? (
         <div className="">

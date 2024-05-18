@@ -2,7 +2,7 @@ import React from 'react'
 import "../../nothing.css"
 const Nothing = () => {
   return (
-    <div className='nothing absolute text-black text-center text-6xl w-auto bg-transparent mt-52'>
+    <div className='nothing flex justify-center items-center  h-screen  text-black  text-6xl '>
     chosse a chat to start a conversation
     </div>
   )

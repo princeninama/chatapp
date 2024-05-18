@@ -42,7 +42,7 @@ const Search = () => {
         value={search}
         onChange={handleSearch}
         placeholder="Search"
-        className="w-64  border-2 border-black px-2 rounded-lg"
+        className="w-auto lg:w-72 border-2 border-black px-2 rounded-lg"
       ></input>
 
       <button

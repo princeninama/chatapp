@@ -10,7 +10,7 @@ const Type = () => {
     e.preventDefault();
     console.log(message);
     // if (!message) return;
-    await SendMsg(message,authUser._id);
+    await SendMsg(message, authUser._id);
     setMessage("");
   };
 
@@ -21,16 +21,15 @@ const Type = () => {
           type="text"
           value={message}
           placeholder="Enter Message"
-          className="w-[70%] px-2"
+          className="w-[69%] px-2"
           onChange={(e) => {
             setMessage(e.target.value);
           }}
         />
-        <div
-          className="w-10 h-10 rounded-full flex items-center justify-center bg-blue-300"
-          onClick={handleSubmit}
-        >
-          <IoSend />
+        <div className="w-10 h-10 rounded-full ml-5 flex items-center justify-center bg-blue-300">
+          <button onClick={handleSubmit}>
+            <IoSend />
+          </button>
         </div>
       </div>
     </div>

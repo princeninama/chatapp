@@ -25,7 +25,7 @@ const Message = ({ message }) => {
       <div className={`${chatClassName}`}>
         {message.message}
       </div>
-      <div className=" opacity-50 text-xs flex gap-1 items-center">
+      <div className=" opacity-50 text-xs bg-blue-200 flex gap-1 right-0 items-center">
         {formattedTime}
       </div>
     </div>

@@ -10,20 +10,23 @@ const Sidebar = () => {
   const { authUser } = useAuthContext();
 
   return (
-    <div className="bg-[#202121] w-[30rem]  h-screen ">
+    <div className="bg-[#202121] w-[30rem]  h-screen overflow-auto">
       <div className="fixed top-0 bg-[#202121]  z-10 w-fu">
-        <h1 className="header text-white text-3xl py-3 ml-4 flex">
-          {/* {authUser.username} */}
-          ChugalKhori
-        </h1>
+        <div className="flex">
+          <h1 className="header text-white text-3xl py-3 ml-4">
+            {/* {authUser.username} */}
+            ChugalKhori
+          </h1>
+          <h1 className="header text-white mt-10 ml-16 ">{authUser.username}</h1>
+        </div>
         <div className="w-full flex px-2 py-2">
           <Search />
         </div>
       </div>
-      <div className="mt-32 text-white">
+      <div className="mt-32 mb-10 text-white">
         <Baate />
       </div>
-        <Logout />
+      <Logout />
     </div>
   );
 };

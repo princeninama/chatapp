@@ -4,13 +4,13 @@ import Message from "./Message";
 
 const Msg = () => {
   const { messages } = UsegetMessage();
-  // const lastMessageRef = useRef();
+  const lastMessageRef = useRef();
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-  //   }, 100);
-  // }, [messages]);
+  useEffect(() => {
+    setTimeout(() => {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  }, [messages]);
 
   // console.log("messages are ", messages);
 

@@ -64,17 +64,19 @@ const SignUp = () => {
     setGender(gender);
   };
   const SaveData = async () => {
-    const data = {
-      fullname: fullname,
-      username: username,
-      email: email,
-      Password: Password,
-      Gender: Gender,
-      ProfilePic: ProfilePic,
-    };
-    console.log("data from sign up", data);
-    await userInfo(data, setAuthUser);
+    const formData = new FormData();
+    formData.append('fullname', fullname);
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('Password', Password); // It's a good practice to use lowercase for keys.
+    formData.append('Gender', Gender);
+    formData.append('ProfilePic', ProfilePic); // Ensure this is a File object
+  
+    console.log("data from sign up", formData);
+  
+    await userInfo(formData, setAuthUser);
   };
+  
   return (
     <div className="flex h-screen">
       <motion.div

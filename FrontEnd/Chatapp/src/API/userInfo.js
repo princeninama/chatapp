@@ -59,3 +59,12 @@ export const logout = async (setAuthUser) => {
     console.log(error);
   }
 };
+
+// export const forget = async(username)=>
+//   {
+//     try {
+//       const response = await axios.get("http://localhost:80/api/auth/signup")
+//     } catch (error) {
+      
+//     }
+//   }

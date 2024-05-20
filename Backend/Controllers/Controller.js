@@ -1,9 +1,7 @@
 import bcrypt from "bcryptjs/dist/bcrypt.js";
 import generateToken from "../utils/token.js";
 import User from "../schema/user.js";
-import multer from "multer";
-const upload = multer({ dest: 'uploads/' });
-
+import toast from "react-hot-toast";
 export const logIn = async (req, res) => {
   try {
     const { username, Password } = req.body;
@@ -39,7 +37,7 @@ export const signUp = async (req, res) => {
   // console.log("at Backend");
   try {
     const { fullname, username, email, Password, Gender } = req.body;
-    const ProfilePic = req.file ? req.file.path : '';
+    const ProfilePic = req.file;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(Password, salt);
 
@@ -55,6 +53,7 @@ export const signUp = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (user) {
+      toast.error('Username already exists');
       console.log("username exists");
       return res.status(400).json({ error: "Username already exists" });
     }
@@ -65,7 +64,11 @@ export const signUp = async (req, res) => {
       email,
       Password: hashedPassword,
       Gender:Gender,
-      ProfilePic:ProfilePic,
+      // ProfilePic:ProfilePic,
+      ProfilePic: {
+        Data:ProfilePic.buffer,
+        contentType: ProfilePic.mimetype,
+      },
     });
 
     console.log(newUser);

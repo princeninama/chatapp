@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import useConversation from "../Zustand/Conversation";
 import toast from "react-hot-toast";
 
+
 export const GetUserForSidebar = () => {
   const [conversations, setConversations] = useState([]);
 
@@ -12,8 +13,13 @@ export const GetUserForSidebar = () => {
         const res = await axios.get("http://localhost:80/api/users/get", {
           withCredentials: true,
         });
-        console.log("value from backend", res.data);
-        setConversations(res.data);
+
+        const conversationsWithImages = res.data.map(conversation => {
+          const imageData = `data:${conversation.ProfilePic.contentType};base64,${conversation.ProfilePic.data}`;
+          return { ...conversation, imageData };
+        });
+
+        setConversations(conversationsWithImages);
       } catch (error) {
         toast.error(error.message);
       }
@@ -24,6 +30,7 @@ export const GetUserForSidebar = () => {
 
   return conversations;
 };
+
 
 export const UsegetMessage = () => {
   const { messages, setMessages, selectConversation } = useConversation();
@@ -39,7 +46,7 @@ export const UsegetMessage = () => {
         const res = await axios.get(
           "http://localhost:80/api/msg/" + selectConversation._id,
           {
-            withCredentials: true
+            withCredentials: true,
           }
         );
         const data = await res.data;

@@ -3,7 +3,6 @@ import SignUp from "./components/SignUp";
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainScreen from "./components/MainScreen";
 import { Toaster } from "react-hot-toast";
-import Hello from "./Hello";
 import { useAuthContext } from "./components/context/Userauth";
 function App() {
   const { authUser } = useAuthContext();

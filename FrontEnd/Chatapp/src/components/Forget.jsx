@@ -9,7 +9,7 @@ const Forget = () => {
             Get
         </button>
       </div>
-    </div>
+    </div> 
   )
 }
 

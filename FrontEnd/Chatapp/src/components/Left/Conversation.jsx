@@ -1,8 +1,12 @@
 import React from "react";
 import useConversation from "../../Zustand/Conversation";
+import { useSocketContext } from "../context/SocketContext";
 
 const Conversation = ({ conversation }) => {
   const { setSelectConversation, selectConversation } = useConversation();
+  const {onlineUsers}=useSocketContext();
+  const isonline=onlineUsers.includes(conversation._id)
+  console.log(onlineUsers)
   const isSelected =
     selectConversation && selectConversation._id === conversation._id;
 

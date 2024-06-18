@@ -6,6 +6,8 @@
   "scripts": {
     "server": "nodemon backend/server.js"
   },
+  "proxy": "http://localhost:80",
+
   "type": "module",
   "keywords": [],
   "author": "",

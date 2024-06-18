@@ -8,7 +8,7 @@ import "../../nothing.css";
 
 const Sidebar = () => {
   const { authUser } = useAuthContext();
-
+  console.log(authUser);
   return (
     <div className="bg-[#202121] w-[30rem]  h-screen overflow-auto">
       <div className="fixed top-0 bg-[#202121]  z-10 w-fu">

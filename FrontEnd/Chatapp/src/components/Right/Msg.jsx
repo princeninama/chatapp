@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import {UsegetMessage} from "../../API/Messageinfo.js";
+import { UsegetMessage } from "../../API/Messageinfo.js";
 import Message from "./Message";
-
+import { useListenMessages } from "../../API/Messageinfo.js";
 const Msg = () => {
   const { messages } = UsegetMessage();
   const lastMessageRef = useRef();
-
+  useListenMessages();
   useEffect(() => {
     setTimeout(() => {
       lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });

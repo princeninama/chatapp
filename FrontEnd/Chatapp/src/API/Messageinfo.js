@@ -2,7 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import useConversation from "../Zustand/Conversation";
 import toast from "react-hot-toast";
-
+import { useSocketContext } from "../components/context/SocketContext";
+import notification from "../assets/notification.mp3"
 
 export const GetUserForSidebar = () => {
   const [conversations, setConversations] = useState([]);
@@ -95,15 +96,18 @@ export const UseSendMessage = () => {
   return SendMsg;
 };
 
-// export const useListenMessages = () => {
-//   const { socket } = useSocketContext();
-//   const { messages, setMessages } = useConversation();
+export const useListenMessages = () => {
+  const { socket } = useSocketContext();
+  const { messages, setMessages } = useConversation();
 
-//   useEffect(() => {
-//     socket?.on("newMessage", (newMessage) => {
-//       setMessages([...messages, newMessage]);
-//     });
+  useEffect(() => {
+    socket?.on("newMessage", (newMessage) => {
+      const sound=new Audio(notification)
+      sound.play();
+      console.log("played")
+      setMessages([...messages, newMessage]);
+    });
 
-//     return () => socket?.off("newMessage");
-//   }, [socket, setMessages, messages]);
-// };
+    return () => socket?.off("newMessage");
+  }, [socket, setMessages, messages]);
+};
